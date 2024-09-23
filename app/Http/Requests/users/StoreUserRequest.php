@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\users;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -35,7 +35,8 @@ class StoreUserRequest extends FormRequest
             'password' => [
                 'required',
                 'min:8',
-                'max:20'
+                'max:20',
+                'confirmed',
             ],
         ];
     }
@@ -57,6 +58,7 @@ class StoreUserRequest extends FormRequest
             'password.required' => 'A senha é obrigatoria',
             'password.min' => 'A senha deve ter no minimo 8 caracteres',
             'password.max' => 'A senha deve ter no maximo 20 caracteres',
+            'password.confirmed' => 'As senhas devem ser iguais',
 
 
         ];
