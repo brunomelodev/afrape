@@ -6,6 +6,7 @@ use App\Http\Requests\users\StoreUserRequest;
 use App\Http\Requests\users\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Validated;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -72,5 +73,25 @@ class UserController extends Controller
         return redirect()
             ->route('users.index')
             ->with('success', 'Usuário atualizado com sucesso!');
+    }
+
+    public function destroy(string $id)
+    {
+        if (!$user = User::find($id)) {
+            return redirect()
+                ->route('users.index')
+                ->with('error', 'Usuário não encontrado!');
+        }
+        if ($user->id == auth()->user()->id) {
+            return redirect()
+                ->route('users.index')
+                ->with('error', 'Você não pode deletar o seu próprio perfil!');
+        }
+
+        $user->delete();
+
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'Usuário deletado com sucesso!');
     }
 }
