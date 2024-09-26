@@ -32,21 +32,25 @@ DB_PASSWORD=senha_aqui
 ```
 
 
+Instale o Sail (Composer sendo executado direto no docker)
+```sh
+docker run --rm -v $(pwd):/app composer require laravel/sail --dev
+```
+
+```sh
+docker run --rm -v $(pwd):/app php artisan sail:install
+```
+
+
 Suba os containers do projeto
 ```sh
-docker-compose up -d
+./vendor/bin/sail up -d
 ```
 
 
 Acesse o container
 ```sh
-docker-compose exec app bash
-```
-
-
-Instale as dependências do projeto
-```sh
-composer install
+./vendor/bin/sail bash
 ```
 
 
@@ -54,6 +58,22 @@ Gere a key do projeto Laravel
 ```sh
 php artisan key:generate
 ```
+
+
+Saia do bash
+```sh
+exit
+```
+
+
+Rode as migration
+```sh
+php artisan migrate
+```
+
+
+Acesse e faça o registro inicial
+[http://localhost/register](http://localhost/register)
 
 
 Acesse o projeto
