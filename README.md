@@ -60,12 +60,6 @@ php artisan key:generate
 ```
 
 
-Saia do bash
-```sh
-exit
-```
-
-
 Rode as migration
 ```sh
 php artisan migrate
