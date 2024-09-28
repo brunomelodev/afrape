@@ -54,7 +54,7 @@
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <td class="px-6 py-4">{{ $user->name }}</td>
                                         <td class="px-6 py-4">{{ $user->email }}</td>
-                                        <td class="px-6 py-4">{{ $user->level ? 'Administrador' : 'Usuário' }}</td>
+                                        <td class="px-6 py-4">{{ $user->level == '0'? 'Administrador' : 'Usuário' }}</td>
                                         <td class="px-6 py-4 flex space-x-3">
                                             <a href="{{ route('users.edit', $user->id) }}">
 

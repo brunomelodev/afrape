@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\students\StoreStudentsRequest;
+use App\Http\Requests\students\UpdateStudentsRequest;
 use App\Models\Students;
 
 class StudentsController extends Controller
 {
+    var $options = [
+        'male' => 'Masculino',
+        'female' => 'Feminino'
+    ];
+
     public function index()
     {
         $students = Students::paginate(15);
@@ -16,10 +22,7 @@ class StudentsController extends Controller
 
     public function create()
     {
-        $options = [
-            'male' => 'Masculino',
-            'female' => 'Feminino'
-        ];
+        $options = $this->options;
         return view('students.create', compact('options'));
     }
 
@@ -52,5 +55,56 @@ class StudentsController extends Controller
         $student['date_of_entry'] = date('d/m/Y', strtotime($student->date_of_entry));
         $student['gender'] = $student->gender == 'male' ? 'Masculino' : 'Feminino';
         return view('students.show', compact('student'));
+    }
+
+    public function edit(string $id)
+    {
+        $options = $this->options;
+
+        if (!$student = Students::find($id)) {
+            return redirect()->route('students.index')
+                ->with('message', 'Aluno não encontrado!');
+        }
+
+        return view('students.edit', compact('student', 'options'));
+    }
+
+    public function update(UpdateStudentsRequest $request, Students $student) {
+
+        // if (!$student = Students::find($id)) {
+        //     return back()->with('message', 'Aluno não encontrado!');
+        // }
+ 
+        $student->update($request->validated());
+
+        return redirect()
+            ->route('students.index')
+            ->with('success', 'Aluno alterado com sucesso!');
+
+        // $data = $request->all();
+        // $data['password'] = bcrypt($data['password']);
+        // User::where('id', $id)->update($data);
+        // return redirect()->route('users.index')
+        //     ->with('success', 'Usuário alterado com sucesso!');
+
+    }
+
+    public function destroy(string $id)
+    {
+
+
+        // if(Gate::denies('is-admin')) {
+        //     return back()->with('message', 'Você não é um Administrador do Sistema!');
+        // }
+
+        if (!$student = Students::find($id)) {
+            return redirect()->route('students.index')
+                ->with('message', 'Usuário não encontrado!');
+        }
+
+        $student->delete();
+
+        return redirect()->route('students.index')
+            ->with('success', 'Usuário excluido com sucesso!');
     }
 }

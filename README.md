@@ -65,6 +65,15 @@ Rode as migration
 php artisan migrate
 ```
 
+Instale o inputmask
+```sh
+npm install inputmask
+```
+
+Rode o NPM
+```sh
+npm run dev
+```
 
 Acesse e faça o registro inicial
 [http://localhost/register](http://localhost/register)

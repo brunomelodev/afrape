@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\users\StoreUserRequest;
 use App\Http\Requests\users\UpdateUserRequest;
 use App\Models\User;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    var  $options = [
+        '0' => 'Administrador',
+        '1' => 'Usuário'
+    ];
+
     public function index()
     {
         $users = User::paginate(15);
@@ -20,10 +25,8 @@ class UserController extends Controller
 
     public function create()
     {
-        $options = [
-            '0' => 'Usuário',
-            '1' => 'Administrador'
-        ];
+       $options = $this->options;
+
         return view('users.create', compact('options'));
     }
 
@@ -41,10 +44,8 @@ class UserController extends Controller
 
     public function edit(string $id)
     {
-        $options = [
-            '0' => 'Usuário',
-            '1' => 'Administrador'
-        ];
+        $options = $this->options;
+
         if (!$user = User::find($id)) {
             return redirect()
                 ->route('users.index')
@@ -94,4 +95,5 @@ class UserController extends Controller
             ->route('users.index')
             ->with('success', 'Usuário deletado com sucesso!');
     }
+
 }

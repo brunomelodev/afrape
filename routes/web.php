@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\CheckIfIsAdmin;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,7 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth', 'verified')->group(function () {
+Route::middleware('auth', 'verified', CheckIfIsAdmin::class)->group(function () {
     Route::get('/users',[UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users',[Usercontroller::class, 'store'])->name('users.store');
