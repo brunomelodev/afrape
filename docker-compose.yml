@@ -3,7 +3,7 @@ services:
   app:
     build:
       args:
-        user: bruno
+        user: 1000
         uid: 1000
       context: ./
       dockerfile: Dockerfile
@@ -39,6 +39,8 @@ services:
     volumes:
       - ./.docker/mysql:/var/lib/mysql
     environment:
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_USER: ${DB_USERNAME}
@@ -68,7 +70,7 @@ services:
   queue:
     build:
       args:
-        user: brunomelodev
+        user: 1000
         uid: 1000
       context: ./
       dockerfile: Dockerfile
