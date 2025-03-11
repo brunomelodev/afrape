@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Concerns\HasUuids; // BRUNO - Adicionado o HasUuids para ter funções prontas pela traits
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+
+class Permission extends Model
+{
+    use HasFactory, HasUuids;
+
+    public function users():  BelongsToMany 
+    {
+            return $this->belongsToMany(User::class);
+    }
+}
