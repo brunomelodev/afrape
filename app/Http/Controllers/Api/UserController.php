@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\DTO\Users\CreateUserDTO;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\StoreUserRequest;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
@@ -18,16 +20,36 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = $this->userRepository->getAllUsers($request->filter ?? '');
+        $users = $this->userRepository->getPaginate(
+            totalPerPage: $request->total_per_page ?? 15,
+            page: $request->page ?? 1,
+            filter: $request->get('filter', ''),
+        );
         return UserResource::collection($users);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        /*
+            Poderia explicar sobre os spread operator
+            Tudo bem?
+            Claro, explico sim, é o spread operator.
+
+            Podemos fazer assim:
+
+            $request->only('value1', 'value2');
+
+            $data = ['value1', 'value2'];
+            $request->only(...$data);
+
+            O método only você pode um passar vários parametros, ou um array.
+            Ficou claro? Qualquer coisa envio outros exemplos.
+        */
+        $user = $this->userRepository->createNew(new CreateUserDTO(... $request->validated()));
+        return new UserResource($user);
     }
 
     /**

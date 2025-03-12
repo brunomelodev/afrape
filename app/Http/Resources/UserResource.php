@@ -18,7 +18,7 @@ class UserResource extends JsonResource
             //BRUNO - poderia personalizar os campos ex: 'desc' => $this->description,
             'id' => $this->id,
             'name' => $this->name,
-            'description' => $this->description,
+            'email' => $this->email,
         ];
     }
 }

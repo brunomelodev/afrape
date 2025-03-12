@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\DTO\Users\CreateUserDTO;
 use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -11,12 +12,20 @@ class UserRepository
     {
     }
 
-    public function getAllUsers(string $filter = ''): LengthAwarePaginator
+    public function getPaginate(int $totalPerPage = 15, int $page = 1, string $filter = ''): LengthAwarePaginator
     {
         return $this->user->where(function($query) use ($filter){
             if($filter !== ''){
                 $query->where('name', 'LIKE', "%{$filter}%");
             }
-        })->paginate();
+        })->paginate($totalPerPage, ['*'], 'page', $page);
+    }
+
+    public function createNew(CreateUserDTO $dto): User
+    {
+        $data = (array) $dto;
+        #versões mais novas do laravel já trás criptografadas
+        // $data['password'] = bcrypt($data['password']);
+        return $this->user->create($data);
     }
 }
