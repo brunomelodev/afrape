@@ -3,7 +3,9 @@
 namespace App\Repositories;
 
 use App\DTO\Users\CreateUserDTO;
+use App\DTO\Users\EditUserDTO;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserRepository
@@ -27,5 +29,30 @@ class UserRepository
         #versões mais novas do laravel já trás criptografadas
         // $data['password'] = bcrypt($data['password']);
         return $this->user->create($data);
+    }
+
+    public function findById(string $id): ?User
+    {
+       // dd($id);exit;
+        return $this->user->find($id);
+    }
+
+    public function update(EditUserDTO $dto): bool
+    {
+        if(!$user = $this->findById($dto->id)){
+            return false;
+        }
+
+        $data = (array) $dto;
+
+        unset($data['password']);
+
+        if($dto->password !== null){
+            #versões mais novas do laravel já trás criptografadas
+            // $data['password'] = bcrypt($dto->password);
+            $data['password'] = $dto->password;
+        }
+        return $user->update($data);
+
     }
 }
