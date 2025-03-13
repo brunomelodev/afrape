@@ -1,5 +1,12 @@
 # Projeto PI - Univesp - API AFRAPE
 
+Projeto desenvolvido para uma entidade do terceiro setor como exigência do Projeto Integrador da UNIVESP - Polo Botucatu
+
+Utilizado os seguintes padrões no desenvolvimento da API backend
+- API RESTfull
+- UUID
+
+
 ## Consumir a API
 
 ### Users
