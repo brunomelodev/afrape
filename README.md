@@ -13,34 +13,34 @@ Utilizado os seguintes padrões no desenvolvimento da API backend
 
 #### Exibir e Filtrar (GET)
 
-Busca todos os usuários
+Buscar todos os usuários
 ```sh
 http://localhost/users
 ```
 
-Busca um usuário pelo UUID
+Buscar um usuário pelo UUID
 ```sh
 http://localhost/users/9e6ad5cf-442d-40b9-9d8d-f3c0e577e13e
 ```
 
-Filtra usuários por termos
+Filtrar usuários por termos
 ```sh
 http://localhost/users?filter=Bruno
 ```
 
-Seta o total de usuário por página
+Setar o total de usuários por página
 ```sh
 http://localhost/users?total_per_page=5
 ```
 
-Filtra usuário por termo e seta o total de usuário por página
+Filtrar usuários por termo e setar o total de usuários por página
 ```sh
 http://localhost/users?filter=Bruno&&total_per_page=1
 ```
 
 #### Cadastrar (POST)
 
-Cadastra o usuário passando um JSON válido
+Cadastrar o usuários passando um JSON válido
 ```sh
 http://localhost/users
 ```
@@ -49,27 +49,32 @@ http://localhost/users
 //Modelo de JSON
 {
     "name": "Nome do Usuário",
-    "email": "Email Válido do Usuário",
+    "email": "Email Válido do Usuário", //e-mail é único no banco
     "password": "Senha do Usuário"
 }
 ```
 
 #### Atualizar (PUT)
 
-Atualiza o usuário passando um JSON válido
+Atualizar o usuário passando um JSON válido
 ```sh
 http://localhost/users/9e692360-ba82-436f-8534-43363021ca7e
 ```
 
 ```json
 //modelo de JSON
-//Não é obrigatório passar o password
 {
     "name": "Nome do Usuário",
-    "password": "Senha do Usuário"
+    "password": "Senha do Usuário" //Não é obrigatório passar o password
 }
 ```
 
+#### Deletar (DELETE)
+
+Deletar o usuário passando o UUID
+```sh
+http://localhost/users/9e692360-ba82-436f-8534-43363021ca7e
+```
 
 
 

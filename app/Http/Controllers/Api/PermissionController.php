@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\DTO\Users\CreateUserDTO;
-use App\DTO\Users\EditUserDTO;
+use App\DTO\Permissions\CreatePermissionDTO;
+use App\DTO\Permissions\EditPermissionDTO;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\StoreUserRequest;
-use App\Http\Requests\Api\UpdateUserRequest;
-use App\Repositories\UserRepository;
+use App\Http\Requests\Api\StorePermissionRequest;
+use App\Http\Requests\Api\UpdatePermissionRequest;
+use App\Repositories\PermissionRepository;
 use Illuminate\Http\Request;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\PermissionResource;
 use Illuminate\Http\Response;
 
-class UserController extends Controller
+class PermissionController extends Controller
 {
-    public function __construct(private UserRepository $userRepository)
+    public function __construct(private PermissionRepository $permissionRepository)
     {
     }
 
@@ -23,18 +23,18 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = $this->userRepository->getPaginate(
+        $permissions = $this->permissionRepository->getPaginate(
             totalPerPage: $request->total_per_page ?? 15,
             page: $request->page ?? 1,
             filter: $request->get('filter', ''),
         );
-        return UserResource::collection($users);
+        return PermissionResource::collection($permissions);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUserRequest $request)
+    public function store(StorePermissionRequest $request)
     {
         /*
             Poderia explicar sobre os spread operator
@@ -51,8 +51,8 @@ class UserController extends Controller
             O método only você pode um passar vários parametros, ou um array.
             Ficou claro? Qualquer coisa envio outros exemplos.
         */
-        $user = $this->userRepository->createNew(new CreateUserDTO(... $request->validated()));
-        return new UserResource($user);
+        $permission = $this->permissionRepository->createNew(new CreatePermissionDTO(... $request->validated()));
+        return new PermissionResource($permission);
     }
 
     /**
@@ -60,25 +60,25 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        if(!$user = $this->userRepository->findById($id)){
-            return response()->json(['message' => 'user not found'], Response::HTTP_NOT_FOUND);
+        if(!$permission = $this->permissionRepository->findById($id)){
+            return response()->json(['message' => 'permission not found'], Response::HTTP_NOT_FOUND);
         }
 
-        return new UserResource($user);
+        return new PermissionResource($permission);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, string $id)
+    public function update(UpdatePermissionRequest $request, string $id)
     {
-        $response = $this->userRepository->update(new EditUserDTO(...[$id, ...$request->validated()]));
+        $response = $this->permissionRepository->update(new EditPermissionDTO(...[$id, ...$request->validated()]));
         if(!$response)
         {
-            return response()->json(['message' => 'user not found'], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => 'permission not found'], Response::HTTP_NOT_FOUND);
         }
 
-      return response()->json(['message' => 'user updated with success']);
+      return response()->json(['message' => 'permission updated with success']);
     }
 
     /**
@@ -86,9 +86,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        if(!$this->userRepository->delete($id))
+        if(!$this->permissionRepository->delete($id))
         {
-            return response()->json(['message' => 'user not found'], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => 'permission not found'], Response::HTTP_NOT_FOUND);
         }
 
         return response()->json([], Response::HTTP_NO_CONTENT);
