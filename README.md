@@ -20,6 +20,7 @@ http://localhost/auth
 ```
 
 ```json
+//Modelo de JSON
 {
     "email": "email@email.com",
     "password": "Senha do Usuário",
@@ -97,7 +98,7 @@ http://localhost/users/9e692360-ba82-436f-8534-43363021ca7e
 ```
 
 ```json
-//modelo de JSON
+//Modelo de JSON
 {
     "name": "Nome do Usuário",
     "password": "Senha do Usuário" //Não é obrigatório passar o password

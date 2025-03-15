@@ -19,6 +19,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'permissions' => PermissionResource::collection($this->whenLoaded('permissions')), //whenLoaded evita gargalho no banco de dados pois só carrega quando tiver o with no repository chamando a permissions
         ];
     }
 }
