@@ -31,12 +31,6 @@ class UserRepository
         return $this->user->create($data);
     }
 
-    public function findById(string $id): ?User
-    {
-       // dd($id);exit;
-        return $this->user->find($id);
-    }
-
     public function update(EditUserDTO $dto): bool
     {
         if(!$user = $this->findById($dto->id)){
@@ -63,5 +57,15 @@ class UserRepository
         }
 
         return $user->delete();
+    }
+
+    public function findById(string $id): ?User
+    {
+        return $this->user->find($id);
+    }
+
+    public function findByEmail(string $email): ?User
+    {
+        return $this->user->where('email', $email)->first();
     }
 }

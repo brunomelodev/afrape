@@ -9,6 +9,41 @@ Utilizado os seguintes padrões no desenvolvimento da API backend
 
 ## Consumir a API
 
+### Authentication
+
+#### Login
+
+Logar e gerar token da API
+
+```sh
+http://localhost/auth
+```
+
+```json
+{
+    "email": "email@email.com",
+    "password": "Senha do Usuário",
+    "device_name": "Disposito do Usuário"
+}
+```
+
+#### Exibir dados do usuário
+
+Retornar os dados do usuário logado
+
+```sh
+http://localhost/me
+```
+
+#### Logout
+
+Deletar o token do usuário logado (Logout)
+
+```sh
+http://localhost/logout
+```
+
+
 ### Users
 
 #### Exibir e Filtrar (GET)
