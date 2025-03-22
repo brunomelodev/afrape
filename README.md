@@ -3,9 +3,35 @@
 Projeto desenvolvido para uma entidade do terceiro setor como exigência do Projeto Integrador da UNIVESP - Polo Botucatu
 
 Utilizado os seguintes padrões no desenvolvimento da API backend
-- API RESTfull
-- UUID
 
+-   API RESTfull
+-   UUID
+
+## Instalando a API
+
+Iniciar o Docker Compose
+
+```sh
+docker compose up -d --build
+```
+
+Entrar no container
+
+```sh
+docker exec -it <nome_do_container> bash
+```
+
+Rodar o composer dentro do container
+
+```sh
+composer install
+```
+
+Migrar o banco laravel
+
+```sh
+php artisan migrate
+```
 
 ## Consumir a API
 
@@ -44,32 +70,36 @@ Deletar o token do usuário logado (Logout)
 http://localhost/logout
 ```
 
-
 ### Users
 
 #### Exibir e Filtrar (GET)
 
 Buscar todos os usuários
+
 ```sh
 http://localhost/users
 ```
 
 Buscar um usuário pelo UUID
+
 ```sh
 http://localhost/users/9e6ad5cf-442d-40b9-9d8d-f3c0e577e13e
 ```
 
 Filtrar usuários por termos
+
 ```sh
 http://localhost/users?filter=Bruno
 ```
 
 Setar o total de usuários por página
+
 ```sh
 http://localhost/users?total_per_page=5
 ```
 
 Filtrar usuários por termo e setar o total de usuários por página
+
 ```sh
 http://localhost/users?filter=Bruno&&total_per_page=1
 ```
@@ -77,6 +107,7 @@ http://localhost/users?filter=Bruno&&total_per_page=1
 #### Cadastrar (POST)
 
 Cadastrar o usuários passando um JSON válido
+
 ```sh
 http://localhost/users
 ```
@@ -93,6 +124,7 @@ http://localhost/users
 #### Atualizar (PUT)
 
 Atualizar o usuário passando um JSON válido
+
 ```sh
 http://localhost/users/9e692360-ba82-436f-8534-43363021ca7e
 ```
@@ -108,17 +140,10 @@ http://localhost/users/9e692360-ba82-436f-8534-43363021ca7e
 #### Deletar (DELETE)
 
 Deletar o usuário passando o UUID
+
 ```sh
 http://localhost/users/9e692360-ba82-436f-8534-43363021ca7e
 ```
-
-
-
-
-
-
-
-
 
 Acessar o projeto
 [http://localhost](http://localhost)
