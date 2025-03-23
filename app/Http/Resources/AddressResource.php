@@ -23,8 +23,8 @@ class AddressResource extends JsonResource
             'city'         => $this->city,
             'state'        => $this->state,
             'postal_code'  => $this->postal_code,
-            'created_at'   => $this->created_at ? $this->created_at->format('d/m/Y H:i:s') : null,
-            'updated_at'   => $this->updated_at ? $this->updated_at->format('d/m/Y H:i:s') : null,
+            //  'created_at'   => $this->created_at ? $this->created_at->format('d/m/Y H:i:s') : null,
+            //  'updated_at'   => $this->updated_at ? $this->updated_at->format('d/m/Y H:i:s') : null,
 
         ];
     }

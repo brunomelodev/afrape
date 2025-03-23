@@ -17,28 +17,21 @@ class SchoolController extends Controller
 {
 
 
-    public function __construct(private SchoolRepository $schoolRepository, private AddressRepository $addressRepository)
-    {
-    }
+    public function __construct(private SchoolRepository $schoolRepository, private AddressRepository $addressRepository) {}
 
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $address = false;
-        if($request->get('address')){
-            $address = true;
-        }
-       $users = $this->schoolRepository->getPaginate(
-        totalPerPage: $request->total_per_page ?? 1,
-        page: $request->page ?? 1,
-        filter: $request->get('filter', ''), //filtro pelo campo 'name'
-        address: $address, //se houver valor passado ele exibe o endereço
-    );
-    return SchoolResource::collection($users);
 
-
+        $users = $this->schoolRepository->getPaginate(
+            totalPerPage: $request->total_per_page ?? 15,
+            page: $request->page ?? 1,
+            filter: $request->filter ?? '',
+            address: $request->address ?? false, //se houver valor passado ele exibe o endereço
+        );
+        return SchoolResource::collection($users);
     }
 
     /**
@@ -56,9 +49,9 @@ class SchoolController extends Controller
     {
 
         $data = $request->validated();
-        $address = new AddressResource($this->addressRepository->createNew(new CreateAddressDTO(... $data['address'])));
+        $address = new AddressResource($this->addressRepository->createNew(new CreateAddressDTO(...$data['address'])));
 
-        if($address->resource === null){
+        if ($address->resource === null) {
             return Response()->json([
                 'message' => 'Já existe um registro de escola.',
             ], Response::HTTP_CONFLICT); // HTTP 409 - Conflito
@@ -69,17 +62,16 @@ class SchoolController extends Controller
 
         $data['address_id'] = $address['id'];
 
-        $school = $this->schoolRepository->createNew(new CreateSchoolDTO(... $data));
+        $school = $this->schoolRepository->createNew(new CreateSchoolDTO(...$data));
         return new SchoolResource($school);
-
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(?string $id = null)
     {
-        //
+        return new SchoolResource($this->schoolRepository->findFirst());
     }
 
     /**
@@ -105,4 +97,9 @@ class SchoolController extends Controller
     {
         //
     }
+
+
+    /*
+    *
+    */
 }

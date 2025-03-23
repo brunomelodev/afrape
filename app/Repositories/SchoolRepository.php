@@ -12,6 +12,7 @@ class SchoolRepository
 {
     public function __construct(protected School $school)
     {
+        //
     }
 
     public function findById($id): ?School
@@ -22,23 +23,22 @@ class SchoolRepository
     public function getPaginate(int $totalPerPage = 15, int $page = 1, string $filter = '', bool $address = false): LengthAwarePaginator
     {
         //se solicitar o endereço busca o endereço
-        if($address){
-            return $this->school->where(function($query) use ($filter){
-                if($filter !== ''){
+        if ($address) {
+            return $this->school->where(function ($query) use ($filter) {
+                if ($filter !== '') {
                     $query->where('name', 'LIKE', "%{$filter}%");
                 }
             })
-            ->with(['address'])  //traz todas as permissions juntas //with(['<nome da função do model School>'])
-            ->paginate($totalPerPage, ['*'], 'page', $page);
+                ->with(['address'])  //traz todas as permissions juntas //with(['<nome da função do model School>'])
+                ->paginate($totalPerPage, ['*'], 'page', $page);
         }
 
-       return $this->school->where(function($query) use ($filter){
-            if($filter !== ''){
+        return $this->school->where(function ($query) use ($filter) {
+            if ($filter !== '') {
                 $query->where('name', 'LIKE', "%{$filter}%");
             }
         })
-        ->paginate($totalPerPage, ['*'], 'page', $page);
-
+            ->paginate($totalPerPage, ['*'], 'page', $page);
     }
 
     public function createNew(CreateSchoolDTO $dto): School
@@ -47,5 +47,19 @@ class SchoolRepository
         return $this->school->create($data);
     }
 
+    public function findFirst(): School
+    {
+        // return $this->school->first()->with(['address']);
 
+        return $this->school->with('address')->first();
+        /*
+        return $this->school->where(function ($query) use ($filter) {
+            if ($filter !== '') {
+                $query->where('name', 'LIKE', "%{$filter}%");
+            }
+        })
+            ->with(['address'])  //traz todas as permissions juntas //with(['<nome da função do model School>'])
+            ->paginate($totalPerPage, ['*'], 'page', $page);
+            */
+    }
 }
