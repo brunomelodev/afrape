@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\PermissionUserController;
 use App\Http\Controllers\Api\SchoolController;
 use App\Http\Controllers\Api\UserController;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -21,22 +22,20 @@ Route::get('/schools', [SchoolController::class, 'index'])->name('schools.index'
 //Route::post('/address', [AddressController::class, 'store'])->name('address.store');
 
 
-//Route::middleware(['auth:sanctum', 'acl'])->group(function (){
-Route::apiResource('/permissions', PermissionController::class); //CRUD All Permissions
+Route::middleware(['auth:sanctum', 'acl'])->group(function (){
+    Route::apiResource('/permissions', PermissionController::class); //CRUD All Permissions
 
 
-Route::get('/users/{user}/permissions', [PermissionUserController::class, 'getPermissionsOfUser'])->name('users.permissions');
-Route::post('/users/{user}/permissions-sync', [PermissionUserController::class, 'syncPermissionsOfUser'])->name('users.permission.sync');
+    Route::get('/users/{user}/permissions', [PermissionUserController::class, 'getPermissionsOfUser'])->name('users.permissions');
+    Route::post('/users/{user}/permissions-sync', [PermissionUserController::class, 'syncPermissionsOfUser'])->name('users.permission.sync');
 
 
-Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show'); //lista os usuários
-Route::post('/users', [UserController::class, 'store'])->name('users.store');
-Route::get('/users', [UserController::class, 'index'])->name('users.index'); //lista os usuários
-//});
-
-
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show'); //lista os usuários
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index'); //lista os usuários
+});
 
 //Route::get('/', fn () => response()->json(['message'=> 'ok']));
 Route::get('/', function () {

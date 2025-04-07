@@ -7,7 +7,7 @@ Utilizado os seguintes padrões no desenvolvimento da API backend
 -   API RESTfull
 -   UUID
 
-## Instalando a API
+## -Instalando a API
 
 Iniciar o Docker Compose
 
@@ -33,9 +33,9 @@ Migrar o banco laravel
 php artisan migrate:fresh
 ```
 
-## Consumir a API
+## -Consumir a API
 
-### Authentication
+### *Authentication
 
 #### Login
 
@@ -70,7 +70,7 @@ Deletar o token do 'user' logado (Logout)
 http://localhost/logout
 ```
 
-### Users
+### *Users
 
 #### Exibir e Filtrar Users (GET)
 
@@ -137,7 +137,7 @@ http://localhost/users/9e692360-ba82-436f-8534-43363021ca7e
 }
 ```
 
-#### Deletar (DELETE)
+#### Deletar User (DELETE)
 
 Deletar o 'user' passando o UUID
 
@@ -145,7 +145,7 @@ Deletar o 'user' passando o UUID
 http://localhost/users/9e692360-ba82-436f-8534-43363021ca7e
 ```
 
-### School
+### *School
 
 #### Exibir e Filtrar (GET)
 
