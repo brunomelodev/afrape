@@ -19,7 +19,7 @@ Route::post('/schools', [SchoolController::class, 'store'])->name('schools.store
 Route::get('/schools', [SchoolController::class, 'index'])->name('schools.index');
 
 
-//Route::post('/address', [AddressController::class, 'store'])->name('address.store');
+//  Route::post('/address', [AddressController::class, 'store'])->name('address.store');
 
 
 Route::middleware(['auth:sanctum', 'acl'])->group(function (){
