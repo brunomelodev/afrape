@@ -5,7 +5,7 @@ namespace App\DTO\Permissions;
 class EditPermissionDTO extends CreatePermissionDTO
 {
     #BRUNO - Crio o DTO para que caso seja necessário adicionar
-    # mais campos, adicione apenas no DTO sem necessidade de adicionar
+    # mais campos, adicione apenas no DTO sem necessidade de adicionar .. h
     # em várias classes
     public function __construct(
         readonly public string $id,
